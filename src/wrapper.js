@@ -1,11 +1,11 @@
 // Import vue component
-import component from './inline-text-editor.vue';
+import component from './vue-inline-text-editor.vue';
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
 	if (install.installed) return;
 	install.installed = true;
-	Vue.component('InlineTextEditor', component);
+	Vue.component('VueInlineTextEditor', component);
 }
 
 // Create module definition for Vue.use()

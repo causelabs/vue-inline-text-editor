@@ -13,17 +13,17 @@ Displays as standard text. Clicking the text opens an editor. Also supports vari
 ### Install
 
 ```bash
-npm install inline-text-editor --save
+npm install vue-inline-text-editor --save
 ```
 
 ### CommonJS
 
 ```javascript
-var InlineTextEditor = require('inline-text-editor');
+var VueInlineTextEditor = require('vue-inline-text-editor');
 
 new Vue({
     components: {
-        'inline-text-editor': InlineTextEditor
+        'vue-inline-text-editor': VueInlineTextEditor
     },
     data: function () {
         return {
@@ -47,17 +47,17 @@ new Vue({
             console.log('text update:');
         }
     },
-    template: '<inline-text-editor :value="value" @blur="onBlur" @close="onClose" @change="onChange" @open="onOpen" @update="onUpdate"></inline-text-editor>'
+    template: '<vue-inline-text-editor :value="value" @blur="onBlur" @close="onClose" @change="onChange" @open="onOpen" @update="onUpdate"></vue-inline-text-editor>'
 });
 ```
 
 ### ES6
 ```javascript
-import InlineTextEditor from 'inline-text-editor';
+import VueInlineTextEditor from 'inline-text-editor';
 
 new Vue({
     components: {
-        'inline-text-editor': InlineTextEditor
+        'inline-text-editor': VueInlineTextEditor
     },
     data: function () {
         return {

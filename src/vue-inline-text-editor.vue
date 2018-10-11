@@ -36,7 +36,7 @@
 <script>
 
 export default {
-    name: 'InlineTextEditor',
+    name: 'VueInlineTextEditor',
     props: {
         autofocus: {
             type: Boolean,

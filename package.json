@@ -1,17 +1,17 @@
 {
-    "name": "inline-text-editor",
+    "name": "vue-inline-text-editor",
     "version": "1.0.0",
-    "main": "dist/inline-text-editor.umd.js",
-    "module": "dist/inline-text-editor.esm.js",
-    "unpkg": "dist/inline-text-editor.min.js",
+    "main": "dist/vue-inline-text-editor.umd.js",
+    "module": "dist/vue-inline-text-editor.esm.js",
+    "unpkg": "dist/vue-inline-text-editor.min.js",
     "browser": {
-        "./sfc": "src/inline-text-editor.vue"
+        "./sfc": "src/vue-inline-text-editor.vue"
     },
     "scripts": {
         "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-        "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/inline-text-editor.umd.js",
-        "build:es": "rollup --config build/rollup.config.js --format es --file dist/inline-text-editor.esm.js",
-        "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/inline-text-editor.min.js"
+        "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-inline-text-editor.umd.js",
+        "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-inline-text-editor.esm.js",
+        "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-inline-text-editor.min.js"
     },
     "devDependencies": {
         "rollup": "^0.57.1",
