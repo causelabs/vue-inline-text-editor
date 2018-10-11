@@ -1,0 +1,317 @@
+(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=".inline-editor[data-v-3d44a7f2] { display: inline-block; cursor: text; } .inline-editor .btn--icon[data-v-3d44a7f2] { margin: 20px 0 0; min-width: 24px; height: 24px; } .inline-editor button[data-v-3d44a7f2] { border: none; background-color: transparent; cursor: pointer; } .inline-editor.type-number[data-v-3d44a7f2], .inline-editor.type-currency[data-v-3d44a7f2], .inline-editor.type-percentage[data-v-3d44a7f2] { margin-left: 10px; } .inline-editor.type-number .input-group[data-v-3d44a7f2], .inline-editor.type-currency .input-group[data-v-3d44a7f2], .inline-editor.type-percentage .input-group[data-v-3d44a7f2] { max-width: 120px; } .inline-editor.type-number .input-group input[data-v-3d44a7f2], .inline-editor.type-currency .input-group input[data-v-3d44a7f2], .inline-editor.type-percentage .input-group input[data-v-3d44a7f2] { text-align: right; } .inline-editor.hover-effects[data-v-3d44a7f2]:not(.disabled) { border: dashed 1px transparent; } .inline-editor.hover-effects[data-v-3d44a7f2]:not(.editing):not(.disabled):hover { border-color: #aaa; } .inline-editor[data-v-3d44a7f2]:not(.editing) { max-width: 100%; } .inline-editor .value-display[data-v-3d44a7f2] { min-height: 19px; min-width: 55px; width: 100%; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; } .inline-editor .value-display .icon[data-v-3d44a7f2] { opacity: 0; cursor: pointer; } .inline-editor .value-display:hover .icon[data-v-3d44a7f2] { opacity: 1; } .inline-editor div.error[data-v-3d44a7f2] { color: #ff0000; font-size: 0.8em; font-weight: bold; } .inline-editor.disabled[data-v-3d44a7f2] { cursor: not-allowed; } .inline-editor.disabled .value-display[data-v-3d44a7f2] { cursor: not-allowed; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var component = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"inline-editor",class:_vm.classes},[(_vm.editingValue !== null)?_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.editingValue),expression:"editingValue"}],ref:"input",attrs:{"type":"text","error-messages":_vm.textValidationErrors,"placeholder":_vm.placeholder,"required":_vm.required,"autofocus":_vm.autofocus},domProps:{"value":(_vm.editingValue)},on:{"change":_vm.emitChange,"blur":_vm.emitBlur,"keypress":_vm.validateInput,"keyup":[function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.updateValue($event)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"esc",27,$event.key,"Escape")){ return null; }return _vm.cancelEdit($event)}],"input":function($event){if($event.target.composing){ return; }_vm.editingValue=$event.target.value;}}}),_vm._v(" "),_c('button',{staticClass:"icon",on:{"click":_vm.cancelEdit}},[_vm._t("cancel-label",[_vm._v("❌")])],2),_vm._v(" "),_c('button',{staticClass:"icon",on:{"click":_vm.updateValue}},[_vm._t("confirm-label",[_vm._v("✅")])],2),_vm._v(" "),(_vm.errorMessages)?_c('div',{staticClass:"error"},[_vm._v(_vm._s(_vm.errorMessages))]):_vm._e()]):_c('div',{staticClass:"value-display",on:{"click":function($event){$event.stopPropagation();return _vm.editValue($event)}}},[_c('span',[_vm._v(_vm._s(_vm.formattedValue)+" "),_c('button',{attrs:{"slot":"edit-button"},on:{"click":function($event){$event.stopPropagation();return _vm.editValue($event)}},slot:"edit-button"},[_vm._t("edit-label")],2)])])])},staticRenderFns: [],_scopeId: 'data-v-3d44a7f2',
+    name: 'InlineTextEditor',
+    props: {
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        closeOnBlur: {
+            type: Boolean,
+            default: false
+        },
+        currencyDecimalPlaces: {
+            type: Number,
+            default: 2
+        },
+        currencySymbol: {
+            default: '$'
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        hoverEffects: {
+            type: Boolean,
+            default: false
+        },
+        maxLength: {
+            type: Number,
+            default: null
+        },
+        minLength: {
+            type: Number,
+            default: null
+        },
+        placeholder: {
+            type: String,
+            default: null
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        type: {
+            type: String,
+            default: 'text',
+            validator: function validator (value) {
+                return ['text', 'number', 'currency', 'percentage'].indexOf(value) > -1
+            }
+        },
+        value: {
+            required: true
+        }
+    },
+    data: function data () {
+        return {
+            editingValue: null,
+            internalValue: this.value,
+            textValidationErrors: []
+        }
+    },
+    computed: {
+        classes: function classes () {
+            var classNames = [];
+            if (this.hoverEffects) {
+                classNames.push('hover-effects');
+            }
+            if (this.editingValue !== null) {
+                classNames.push('editing');
+            }
+            if (this.disabled) {
+                classNames.push('disabled');
+            }
+            classNames.push('type-' + this.type);
+            return classNames.join(' ')
+        },
+        errorMessages: function errorMessages () {
+            if (this.textValidationErrors.length) {
+                return this.textValidationErrors.join(', ')
+            }
+            return null
+        },
+        formattedValue: function formattedValue () {
+            if ((null === this.internalValue) || ('' === this.internalValue)) {
+                return this.placeholder
+            }
+            if (this.type === 'currency') {
+                return this.formatCurrency(this.internalValue, 0)
+            }
+            if (this.type === 'percentage') {
+                return this.internalValue + '%'
+            }
+            return this.internalValue
+        }
+    },
+    watch: {
+        internalValue: function internalValue (newValue) {
+            this.$emit('update:value', newValue);
+        },
+        selectValue: function selectValue (newValue) {
+            this.internalSelectValue = newValue;
+        },
+        value: function value (newValue) {
+            this.internalValue = newValue;
+        }
+    },
+    mounted: function mounted () {
+        // If this field is required, but is empty, open the editor
+        if (this.required) {
+            if ((this.internalValue === '') || (this.internalValue === null)) {
+                this.editingValue = '';
+                this.showSelect = true;
+            }
+        }
+    },
+    methods: {
+        cancelEdit: function cancelEdit () {
+            this.internalSelectValue = this.originalSelectValue;
+            this.closeEditor();
+        },
+        closeEditor: function closeEditor () {
+            this.editingValue = null;
+            this.$emit('close');
+            this.originalSelectValue = null;
+        },
+        editValue: function editValue () {
+            var this$1 = this;
+
+            if (this.disabled) {
+                return
+            }
+            if (this.internalValue === null) {
+                // Clicking into an empty editor, set to an empty string
+                this.editingValue = '';
+            } else {
+                this.editingValue = this.internalValue;
+            }
+            this.filterValue();
+            this.originalSelectValue = this.internalSelectValue;
+
+            // Set the focus to the input
+            window.setTimeout(function () {
+                this$1.showSelect = true;
+                this$1.focus();
+            }, 10);
+            this.$emit('open');
+        },
+        emitBlur: function emitBlur (e) {
+            this.validate();
+            this.$emit('blur', e);
+            if (this.closeOnBlur === true) {
+                this.updateValue();
+            }
+        },
+        emitChange: function emitChange (e) {
+            this.validate();
+            this.$emit('change', e);
+        },
+        filterValue: function filterValue () {
+            if (this.editingValue === null) {
+                return
+            }
+            if (['number', 'currency', 'percentage'].indexOf(this.type) > -1) {
+                this.editingValue = this.editingValue.toString().replace(/[^0-9.]/g, '');
+            }
+        },
+        focus: function focus () {
+            var this$1 = this;
+
+            try {
+                this.$nextTick(function () {
+                    this$1.$refs.input.focus();
+                });
+            } catch (ignore) {
+                // ignore
+            }
+        },
+        /**
+         * Takes a number and formats it as US currency
+         * @param  {number} value The number to format
+         * @return {string} The formatted value
+         */
+        formatCurrency: function formatCurrency (value) {
+            try {
+                var digitsRE = /(\d{3})(?=\d)/g;
+                // Strip out any non-numeric characters
+                value = parseFloat(value.toString().replace(/[^0-9.-]/g, ''), 10);
+
+                if (!isFinite(value) || (!value && value !== 0)) {
+                    return ''
+                }
+
+                var stringified = Math.abs(value).toFixed(this.currencyDecimalPlaces);
+                var _int = this.currencyDecimalPlaces ? stringified.slice(0, -1 - this.currencyDecimalPlaces) : stringified;
+                var i = _int.length % 3;
+                var head = i > 0 ? (_int.slice(0, i) + (_int.length > 3 ? ',' : '')) : '';
+                var _float = this.currencyDecimalPlaces ? stringified.slice(-1 - this.currencyDecimalPlaces) : '';
+                var sign = value < 0 ? '-' : '';
+                return sign + this.currencySymbol + head + _int.slice(i).replace(digitsRE, '$1,') + _float
+            } catch (e) {
+                return ''
+            }
+        },
+        updateValue: function updateValue () {
+            var this$1 = this;
+
+            this.validate();
+            if (this.textValidationErrors.length) {
+                return false
+            }
+            var isChanged = false;
+            if (this.internalValue !== this.editingValue) {
+                this.internalValue = this.editingValue;
+                isChanged = true;
+            }
+            if (isChanged) {
+                this.$nextTick(function () {
+                    this$1.$emit('update');
+                });
+            }
+            this.closeEditor();
+        },
+        validate: function validate () {
+            var errors = [];
+            this.filterValue();
+            if (this.required && !this.editingValue) {
+                errors.push('This value is required');
+            } else if (this.minLength && this.editingValue && (this.editingValue.length < this.minLength)) {
+                errors.push('Must be at least ' + this.minLength + ' characters');
+            } else if (this.maxLength && this.editingValue && (this.editingValue.length > this.maxLength)) {
+                errors.push('Max ' + this.maxLength + ' characters allowed');
+            }
+            this.textValidationErrors = errors;
+        },
+        validateInput: function validateInput (evt) {
+            // Only for number, currency, and percentage fields
+            if (['number', 'currency', 'percentage'].indexOf(this.type) === -1) {
+                return
+            }
+
+            // Get the key code
+            evt = (evt) || window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+            // Verify that it's a number or control key
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                evt.preventDefault();
+            } else {
+                return true
+            }
+        }
+    }
+}
+
+// Import vue component
+
+// Declare install function executed by Vue.use()
+function install(Vue) {
+	if (install.installed) { return; }
+	install.installed = true;
+	Vue.component('InlineTextEditor', component);
+}
+
+// Create module definition for Vue.use()
+var plugin = {
+	install: install,
+};
+
+// Auto-install when vue is found (eg. in browser via <script> tag)
+var GlobalVue = null;
+if (typeof window !== 'undefined') {
+	GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+	GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+	GlobalVue.use(plugin);
+}
+
+export default component;
+export { install };
