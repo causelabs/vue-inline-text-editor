@@ -25,7 +25,7 @@
         </div>
         <div v-else @click.stop="editValue" class="value-display">
             <span>{{ formattedValue }} 
-                <button slot="edit-button" @click.stop="editValue">
+                <button slot="edit-button" class="icon" @click.stop="editValue">
                     <slot name="edit-label"></slot>
                 </button>
             </span>

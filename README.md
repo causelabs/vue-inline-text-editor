@@ -110,6 +110,10 @@ Second, setup development environment
 ```
 vue serve main.js
 ```
+Third, run tests as you develop. Please provide tests for any new features.
+```
+npm run test
+```
 
 ## License
 
