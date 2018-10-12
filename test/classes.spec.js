@@ -1,6 +1,6 @@
 import { getComponentWrapper } from './utils.js'
 
-describe('VueInlineTextEditor classes test', () => {
+describe('VueInlineTextEditor classes tests', () => {
 
   it('does not include the hover-effects class if attribute is false', () => {
     const wrapper = getComponentWrapper({ 'hover-effects': false })

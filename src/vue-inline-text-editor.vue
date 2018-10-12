@@ -201,7 +201,9 @@ export default {
         focus () {
             try {
                 this.$nextTick(() => {
-                    this.$refs.input.focus()
+                    if (this.$refs && this.$refs.input) {
+                        this.$refs.input.focus()
+                    }
                 })
             } catch (ignore) {
                 // ignore

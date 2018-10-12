@@ -1,6 +1,6 @@
 import { getComponentWrapper } from './utils.js'
 
-describe('VueInlineTextEditor test', () => {
+describe('VueInlineTextEditor basic tests', () => {
   it('displays the initial value', () => {
 
     const wrapper = getComponentWrapper()
