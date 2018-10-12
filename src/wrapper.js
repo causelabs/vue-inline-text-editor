@@ -1,3 +1,4 @@
+/*global global:true*/
 // Import vue component
 import component from './vue-inline-text-editor.vue';
 

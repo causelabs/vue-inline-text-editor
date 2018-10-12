@@ -114,6 +114,14 @@ Third, run tests as you develop. Please provide tests for any new features.
 ```
 npm run test
 ```
+Fourth, check inting
+```
+npm run lint
+```
+Fifth, build the dist files
+```
+npm run build
+```
 
 ## License
 

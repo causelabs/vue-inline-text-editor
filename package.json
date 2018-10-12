@@ -12,7 +12,8 @@
         "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-inline-text-editor.umd.js",
         "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-inline-text-editor.esm.js",
         "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-inline-text-editor.min.js",
-        "test": "mocha-webpack --webpack-config conf/webpack.config.js --require test/setup.js test/**/*.spec.js"
+        "test": "mocha-webpack --webpack-config conf/webpack.config.js --require test/setup.js test/**/*.spec.js",
+        "lint": "eslint --ext .js,.vue src"
     },
     "dependencies": {
         "vue": "^2.1.0"
@@ -21,7 +22,7 @@
         "@babel/core": "^7.1.2",
         "@vue/test-utils": "^1.0.0-beta.25",
         "babel-core": "^6.22.1",
-        "babel-eslint": "^8.2.1",
+        "babel-eslint": "^8.2.6",
         "babel-helper-vue-jsx-merge-props": "^2.0.3",
         "babel-loader": "^7.1.1",
         "babel-plugin-istanbul": "^5.0.1",
@@ -33,6 +34,14 @@
         "chai": "^4.2.0",
         "cross-env": "^5.2.0",
         "css-loader": "^0.28.0",
+        "eslint": "^5.7.0",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-friendly-formatter": "^4.0.1",
+        "eslint-loader": "^2.1.1",
+        "eslint-plugin-html": "^4.0.6",
+        "eslint-plugin-promise": "^4.0.1",
+        "eslint-plugin-standard": "^4.0.0",
+        "eslint-plugin-vue": "^4.7.1",
         "expect": "^23.6.0",
         "extract-text-webpack-plugin": "^3.0.2",
         "friendly-errors-webpack-plugin": "^1.6.1",
