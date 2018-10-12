@@ -15,10 +15,10 @@
                 ref="input"
                 :autofocus="autofocus"
             >
-            <button class="icon" @click="cancelEdit">
+            <button class="icon cancel" @click="cancelEdit">
                 <slot name="cancel-label">❌</slot>
             </button>
-            <button class="icon" @click="updateValue">
+            <button class="icon confirm" @click="updateValue">
                 <slot name="confirm-label">✅</slot>
             </button>
             <div v-if="errorMessages" class="error">{{ errorMessages }}</div>

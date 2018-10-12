@@ -1,19 +1,4 @@
-import Vue from 'vue'
-import { shallowMount } from '@vue/test-utils'
-import VueInlineTextEditor from '../src/vue-inline-text-editor.vue'
-
-// helper function that mounts and returns the component
-function getComponentWrapper (customProps = {}) {
-    let props = {
-        value: 'My Value'
-    }
-    
-    props = Object.assign(props, customProps)
-    console.log('props', customProps, props)
-    return shallowMount(VueInlineTextEditor, {
-        propsData: props
-    })
-}
+import { getComponentWrapper } from './utils.js'
 
 describe('VueInlineTextEditor test', () => {
   it('displays the initial value', () => {
@@ -53,4 +38,55 @@ describe('VueInlineTextEditor test', () => {
 
     expect(wrapper.find('input').exists()).toBe(false)
   })
+
+  it('displays an edit icon if provided', () => {
+    const wrapper = getComponentWrapper({}, {
+        'edit-label': '<span class="fa fa-pen"></span>'
+    })
+
+    expect(wrapper.find('span.fa').exists()).toBe(true)
+  })
+
+  it('displays an edit icon if provided', () => {
+    const wrapper = getComponentWrapper({}, {
+        'edit-label': '<span class="fa fa-pen"></span>'
+    })
+
+    expect(wrapper.find('span.fa').exists()).toBe(true)
+  })
+
+  it('displays an custom save and cancel icons if provided', () => {
+    const wrapper = getComponentWrapper({}, {
+        'confirm-label': '<span class="fa fa-ban"></span>',
+        'cancel-label': '<span class="fa fa-save"></span>'
+    })
+
+    // open the control
+    wrapper.find('span').trigger('click')
+
+    expect(wrapper.find('span.fa-ban').exists()).toBe(true)
+    expect(wrapper.find('span.fa-save').exists()).toBe(true)
+  })
+
+  it('includes the hover-effects class if enabled', () => {
+    const wrapper = getComponentWrapper({ 'hover-effects': true })
+
+    expect(wrapper.find('div.inline-editor').attributes('class')).toContain('hover-effects')
+  })
+
+  it('closes on blur if enabled', () => {
+    const wrapper = getComponentWrapper({ 'close-on-blur': true })
+    expect(wrapper.vm.$data.editingValue).toBeNull()
+
+    // open the control
+    wrapper.find('span').trigger('click')
+    expect(wrapper.vm.$data.editingValue).not.toBeNull()
+    expect(wrapper.find('input').exists()).toBe(true)
+
+    // blur
+    wrapper.find('input').trigger('blur')
+    expect(wrapper.vm.$data.editingValue).toBeNull()
+    expect(wrapper.find('input').exists()).toBe(false)
+  })
+
 });
