@@ -1,6 +1,8 @@
 {
     "name": "vue-inline-text-editor",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "description": "An inline text editor for VueJS.",
+    "keywords": ["vue", "vuejs", "text editor", "component"],
     "main": "dist/vue-inline-text-editor.umd.js",
     "module": "dist/vue-inline-text-editor.esm.js",
     "unpkg": "dist/vue-inline-text-editor.min.js",
