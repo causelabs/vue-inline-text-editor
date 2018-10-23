@@ -6,7 +6,7 @@ Displays as standard text. Clicking the text opens an editor. Also supports vari
 
 ## Demo
 
-Open the `/demo/index.html` file in a browser.
+[View the demo here](https://causelabs.github.io/vue-inline-text-editor/index.html).
 
 ## Usage
 

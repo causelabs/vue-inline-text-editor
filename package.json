@@ -11,10 +11,11 @@
         "./sfc": "src/vue-inline-text-editor.vue"
     },
     "scripts": {
-        "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+        "build": "npm run build:umd & npm run build:es & npm run build:unpkg & npm run build:demo",
         "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-inline-text-editor.umd.js",
         "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-inline-text-editor.esm.js",
         "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-inline-text-editor.min.js",
+        "build:demo": "cp -rf dist docs/dist",
         "test": "mocha-webpack --webpack-config conf/webpack.config.js --require test/setup.js test/**/*.spec.js",
         "lint": "eslint --ext .js,.vue src"
     },
