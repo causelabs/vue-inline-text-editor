@@ -6,9 +6,16 @@ Displays as standard text. Clicking the text opens an editor. Also supports vari
 
 ## Demo
 
-[Demo](./demo/index.html)
+Open the `/demo/index.html` file in a browser.
 
 ## Usage
+
+```javascript
+<vue-inline-text-editor
+    :value.sync="value1"
+    placeholder="Enter something here">
+</vue-inline-text-editor>
+```
 
 ### Install
 
