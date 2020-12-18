@@ -60,11 +60,11 @@ new Vue({
 
 ### ES6
 ```javascript
-import VueInlineTextEditor from 'inline-text-editor';
+import VueInlineTextEditor from 'vue-inline-text-editor';
 
 new Vue({
     components: {
-        'inline-text-editor': VueInlineTextEditor
+        'vue-inline-text-editor': VueInlineTextEditor
     },
     data: function () {
         return {
@@ -88,7 +88,7 @@ new Vue({
             console.log('text update:');
         }
     },
-    template: '<inline-text-editor :value="value" @blur="onBlur" @close="onClose" @change="onChange" @open="onOpen" @update="onUpdate"></inline-text-editor>'
+    template: '<vue-inline-text-editor :value="value" @blur="onBlur" @close="onClose" @change="onChange" @open="onOpen" @update="onUpdate"></inline-text-editor>'
 })
 ```
 
